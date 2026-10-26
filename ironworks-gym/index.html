@@ -187,7 +187,7 @@
     document.getElementById('menuToggle').addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('mobile-open'));
     const track = document.getElementById('zonesTrack');
     let dragStart = 0; let dragOrigin = 0; let dragging = false;
-    track.addEventListener('pointerdown', event => { dragging = true; dragStart = event.clientX; dragOrigin = Number((getComputedStyle(track).transform.match(/matrix([^,]+, ?[^,]+, ?[^,]+, ?[^,]+, ?([^,]+)/) || [0, 0])[1]) || 0; track.setPointerCapture(event.pointerId); track.classList.add('is-dragging'); });
+    track.addEventListener('pointerdown', event => { dragging = true; dragStart = event.clientX; const matrix = getComputedStyle(track).transform; dragOrigin = matrix === 'none' ? 0 : Number(matrix.split(',')[4]) || 0; track.setPointerCapture(event.pointerId); track.classList.add('is-dragging'); });
     track.addEventListener('pointermove', event => { if (!dragging || (window.gsap && window.ScrollTrigger)) return; track.style.transform = 'translateX(' + (dragOrigin + event.clientX - dragStart) + 'px)'; });
     track.addEventListener('pointerup', () => { dragging = false; track.classList.remove('is-dragging'); });
     track.addEventListener('pointercancel', () => { dragging = false; track.classList.remove('is-dragging'); });
