@@ -38,7 +38,7 @@
     const preloader=document.getElementById('ccPreloader'); window.setTimeout(()=>preloader.classList.add('done'),1200);
     const nav=document.getElementById('ccNav'); document.getElementById('ccMenu').addEventListener('click',()=>nav.classList.toggle('open'));
     document.querySelectorAll('.cc-links a').forEach(link=>link.addEventListener('click',()=>nav.classList.remove('open')));
-    document.querySelectorAll('[data-menu-tab]').forEach(tab=>tab.addEventListener('click',()=>{const group=tab.dataset.menuTab; document.querySelectorAll('[data-menu-tab]').forEach(item=>item.classList.toggle('active',item===tab)); document.querySelectorAll('[data-menu-group]').forEach(item=>item.hidden=item.dataset.menuGroup!==group);}));
+    document.querySelectorAll('[data-menu-tab]').forEach(tab=>tab.addEventListener('click',()=>{const group=tab.dataset.menuTab; document.querySelectorAll('[data-menu-tab]').forEach(item=>item.classList.toggle('active',item===tab)); document.querySelectorAll('[data-menu-group]').forEach(item=>{item.hidden=item.dataset.menuGroup!==group; if(!item.hidden)item.classList.add('show');});}));
     document.getElementById('ccForm').addEventListener('submit',event=>{event.preventDefault(); event.currentTarget.hidden=true; document.getElementById('ccSuccess').style.display='block';});
     const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; const root=document.documentElement; let frame=0;
     const update=()=>{frame=0; const max=Math.max(1,document.documentElement.scrollHeight-innerHeight); root.style.setProperty('--scroll-progress',Math.min(1,scrollY/max));}; window.addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(update)},{passive:true}); update();
